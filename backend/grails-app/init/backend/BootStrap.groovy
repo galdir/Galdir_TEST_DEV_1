@@ -32,18 +32,18 @@ class BootStrap {
         while (ca.getTime()>cFim.getTime()){
             if(ca.get(Calendar.DAY_OF_WEEK)>1 && ca.get(Calendar.DAY_OF_WEEK)<7){
                 if(ca.get(Calendar.HOUR_OF_DAY)>=10 && ca.get(Calendar.HOUR_OF_DAY)<18){            
-                    double randomValue = 100 + (200-100) * r.nextDouble();
+                    double randomValue = 100.0 + (200.0-100.0) * r.nextDouble();
                     stockService.save(nitryx, randomValue, date)
-                    randomValue = 5 + (8 - 5) * r.nextDouble();
+                    randomValue = 5.0 + (8.0 - 5.0) * r.nextDouble();
                     stockService.save(gerdau, randomValue, date)
-                    randomValue = 4 + (7 -4 ) * r.nextDouble();
+                    randomValue = 4.0 + (7.0 -4.0 ) * r.nextDouble();
                     stockService.save(hapvida, randomValue, date)        
                 }
             }
             
             
             cActual.setTime(ca.getTime())            
-            ca.add(Calendar.MINUTE, -5)
+            ca.add(Calendar.MINUTE, -15)
 
             date=ca.getTime()
             
