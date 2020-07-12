@@ -9,25 +9,27 @@ class BootStrap {
     CompanyService companyService
     StockService stockService
     Date date
-    Calendar ca = Calendar.getInstance()   
+    Calendar ca = Calendar.getInstance()
+    Calendar cActual = Calendar.getInstance()   
+    Calendar cFim = Calendar.getInstance()   
+
     
 
-    //String pattern = 'yyyy-MM-dd hh:mm:ss'
-    //String input = "2020-07-10 11:01:00"
-    //Date date = new SimpleDateFormat(pattern).parse(input)
+
     Random r = new Random()
     int days=0
-    //Date date = new Date(System.currentTimeMillis())
 
     def init = { servletContext ->
         Company nitryx = companyService.save("Nitryx","AI")
         Company gerdau = companyService.save("Gerdau","metallurgy")
         Company hapvida = companyService.save("Hapvida","health")
 
-        //Stock s= new Stock(nitryx, 200.0d, date)
         date = new Date(System.currentTimeMillis())
         ca.setTime(date) 
-        while (days<30){
+        cFim.setTime(date)
+        cFim.add(Calendar.DATE,-30)
+
+        while (ca.getTime()>cFim.getTime()){
             if(ca.get(Calendar.DAY_OF_WEEK)>1 && ca.get(Calendar.DAY_OF_WEEK)<7){
                 if(ca.get(Calendar.HOUR_OF_DAY)>=10 && ca.get(Calendar.HOUR_OF_DAY)<18){            
                     double randomValue = 100 + (200-100) * r.nextDouble();
@@ -39,9 +41,8 @@ class BootStrap {
                 }
             }
             
-            Calendar cActual = Calendar.getInstance()
-            cActual.setTime(ca.getTime())
             
+            cActual.setTime(ca.getTime())            
             ca.add(Calendar.MINUTE, -5)
 
             date=ca.getTime()
